@@ -14,22 +14,57 @@
     <div class="lewyall">
     <div class="lewy1">
         <h3> Ryby zamieszkujące rzeki </h3>
-        
+        <?php
+
+        $con = new mysqli("127.0.0.1","root","","wedkowanie");
+        $res1 = $con->query("SELECT ryby.nazwa,lowisko.akwen,lowisko.wojewodztwo FROM ryby JOIN lowisko ON lowisko.Ryby_id=ryby.id WHERE ryby.wystepowanie LIKE '%rzeki%';");
+        $cos1 = $res1->fetch_all();
+        echo "<ol>";
+        for($i=0;$i<count($cos1);$i++)
+        {
+            echo "<li>".$cos1[$i][0]." pływa w rzece ".$cos1[$i][1].",".$cos1[$i][2]."</li>";
+        }
+        echo "</ol>";
+
+        ?>
     </div>
 
     <div class="lewy2">
         <h3> Ryby drapieżne naszych wód </h3>
         <table>
-            <tr>
-                <td> L.p </td>
+
+        <tr>
+            <td>
+                L.p
+            </td>
+            <td>
+                Gatunek
+            </td>
+            <td>
+                Występowanie
+            </td>
             
-            
-                <td> Gatunek </td>
-            
-            
-                <td> Występowanie </td>
-            </tr>
-            
+            <?php
+            $res = $con->query("SELECT id,nazwa,wystepowanie FROM ryby WHERE ryby.styl_zycia=1;");
+            $cos = $res->fetch_all();
+
+            for($i=0;$i<count($cos);$i++)
+            {
+                echo "<tr><td>";
+                echo "".$cos[$i][0]."";
+                echo "</td>";
+
+                echo "<td>";
+                echo "".$cos[$i][1]."";
+                echo "</td>";
+
+                echo "<td>";
+                echo "".$cos[$i][2]."";
+                echo "</td></tr>";
+            }
+            ?>
+
+        </tr>
 
         </table>
     </div>
@@ -42,12 +77,5 @@
         <p> Stronę wykonał: Paweł Kozłowski </p>
     </div>
 </body>
-<?php
-            $db = mysqli_connect ("localhost", "root", "", "wedkowanie");
-            //mysql_select_db ("wedkowanie");
-            //mysqli_query ($db, "SELECT id, nazwa, wystepowanie FROM ryby WHERE styl_zycia=1;");
-            $res = mysqli_query($db, "SELECT id, nazwa, wystepowanie FROM ryby WHERE styl_zycia=1;");
-            $sup = mysqli_fetch_array($res);
-            print_r($sup);
-        ?>
+        
 </html>
