@@ -1,0 +1,6 @@
+kw1.
+SELECT id, nazwa, wystepowanie FROM ryby WHERE styl_zycia=1;
+
+kw2.
+SELECT Ryby_id, wymiar_ochronny FROM Okres_ochronny WHERE wymiar_ochronny<=30;
+
